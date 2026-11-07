@@ -1,0 +1,84 @@
+{% extends 'customers/base.html' %}
+
+{% block title %}Edit Customer - Milk Distribution Customer Record System{% endblock %}
+
+{% block content %}
+<div class="card form-container">
+    <h2 class="card-title">Edit Customer Details</h2>
+    
+    <form id="editCustomerForm" method="POST" action="{% url 'edit_customer' customer.id %}" onsubmit="return validateEditCustomerForm(event);">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="name">Customer Name *</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{ customer.name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address *</label>
+            <textarea id="address" name="address" class="form-control" rows="3" required>{{ customer.address }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="litres_per_day">Litres Per Day *</label>
+            <input type="text" id="litres_per_day" name="litres_per_day" class="form-control" value="{{ customer.litres_per_day }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="text" id="phone" name="phone" class="form-control" value="{{ customer.phone }}" required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Customer</button>
+            <a href="{% url 'customer_list' %}" class="btn btn-secondary">Back to Customer List</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function validateEditCustomerForm(event) {
+        var nameInput = document.getElementById('name');
+        var addressInput = document.getElementById('address');
+        var litresInput = document.getElementById('litres_per_day');
+        var phoneInput = document.getElementById('phone');
+
+        var nameVal = nameInput.value.trim();
+        var addressVal = addressInput.value.trim();
+        var litresVal = litresInput.value.trim();
+        var phoneVal = phoneInput.value.trim();
+
+        if (nameVal === '') {
+            alert('Customer Name cannot be empty.');
+            nameInput.focus();
+            if (event) event.preventDefault();
+            return false;
+        }
+
+        if (addressVal === '') {
+            alert('Address cannot be empty.');
+            addressInput.focus();
+            if (event) event.preventDefault();
+            return false;
+        }
+
+        if (litresVal === '') {
+            alert('Litres Per Day cannot be empty.');
+            litresInput.focus();
+            if (event) event.preventDefault();
+            return false;
+        }
+
+        if (phoneVal === '') {
+            alert('Phone Number cannot be empty.');
+            phoneInput.focus();
+            if (event) event.preventDefault();
+            return false;
+        }
+
+        return true;
+    }
+</script>
+{% endblock %}

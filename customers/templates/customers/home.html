@@ -1,0 +1,16 @@
+{% extends 'customers/base.html' %}
+
+{% block title %}Home - Milk Distribution Customer Record System{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Milk Distribution Customer Record System</h1>
+    <p>
+        Welcome to the Milk Distribution Customer Record System. This application helps a milk distribution agency manage customer details and daily milk requirements.
+    </p>
+    <div class="hero-actions">
+        <a href="{% url 'add_customer' %}" class="btn btn-primary">Add Customer</a>
+        <a href="{% url 'customer_list' %}" class="btn btn-secondary">View Customers</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Milk Distribution Customer Record System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'customers/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="nav-brand">
+                🥛 Milk Distribution System
+            </a>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'customer_list' %}">Customers</a></li>
+                    <li><a href="{% url 'add_customer' %}">Add Customer</a></li>
+                    <li class="nav-user">Welcome, {{ user.username }}</li>
+                    <li>
+                        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-logout-btn">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Django Messages -->
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% else %}info{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Milk Distribution Customer Record System. All Rights Reserved.</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

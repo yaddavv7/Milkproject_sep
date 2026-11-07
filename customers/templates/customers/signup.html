@@ -1,0 +1,24 @@
+{% extends 'customers/base.html' %}
+
+{% block title %}Sign Up - Milk Distribution Customer Record System{% endblock %}
+
+{% block content %}
+<div class="card form-container">
+    <h2 class="card-title">Register New Account</h2>
+    
+    <form method="POST" action="{% url 'signup' %}" class="django-form">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <a href="{% url 'login' %}" class="btn btn-secondary">Already Registered? Log In</a>
+        </div>
+
+        <div class="form-footer-link">
+            Already have an account? <a href="{% url 'login' %}">Log in here</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
