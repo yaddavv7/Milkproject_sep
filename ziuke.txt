@@ -1,0 +1,5 @@
+zuike comments
+
+both admin and user have same dashboard fix it.
+
+before pushing changes to git run "git pull" command.
